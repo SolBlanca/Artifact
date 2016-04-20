@@ -1,4 +1,5 @@
 import React from 'react';
+import Input from '../Input'
 
 class Command extends React.Component
 {
@@ -10,7 +11,10 @@ class Command extends React.Component
 		};
 
 		return (
-			<div style={styles}>Heyyy</div>
+			<div className='Command' style={styles}>
+				Ascension
+				<Input />
+			</div>
 		);
 	}
 }

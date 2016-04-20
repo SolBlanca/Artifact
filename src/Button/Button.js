@@ -5,12 +5,15 @@ class Button extends React.Component
 	render() 
 	{
 		var styles = {
-			border: 'none',
-			fontSize: '40px'
+			
 		};
 
+		var classes = [
+			'Button'
+		];
+
 		return (
-			<button style={styles}>Heyyy</button>
+			<button className={classes} style={styles}>Heyyy</button>
 		);
 	}
 }

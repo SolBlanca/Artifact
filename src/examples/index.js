@@ -1,17 +1,23 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Button, Command} from '..';
+import * as I from '..';
 
 class App extends React.Component {
   render () {
     return (
       <div>
-      	<Command />
-        <p> Hello React!</p>
-        <Button />
+      	<I.Command />
+        <I.Card> Hello React!</I.Card>
+        <I.Button />
+        <I.Tree nodeLabel='Hello World'>
+	        <I.Tree nodeLabel='Bye'>
+	        	moo
+	        </I.Tree>
+	        hey
+        </I.Tree>
       </div>
     );
   }
 }
 
-render(<App/>, document.body);
+render(<App/>, document.getElementById('root'));
