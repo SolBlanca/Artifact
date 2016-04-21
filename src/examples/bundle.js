@@ -102,6 +102,11 @@
 	            'moo'
 	          ),
 	          'hey'
+	        ),
+	        _react2.default.createElement(
+	          I.DataSource,
+	          null,
+	          _react2.default.createElement(I.Graph, null)
 	        )
 	      );
 	    }
@@ -20574,7 +20579,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Tree = exports.Input = exports.Command = exports.Card = exports.Button = undefined;
+	exports.Tree = exports.Input = exports.Graph = exports.DataSource = exports.Command = exports.Card = exports.Button = undefined;
 	
 	var _Button2 = __webpack_require__(/*! ./Button */ 167);
 	
@@ -20588,11 +20593,19 @@
 	
 	var _Command3 = _interopRequireDefault(_Command2);
 	
+	var _DataSource2 = __webpack_require__(/*! ./Graph/DataSource */ 180);
+	
+	var _DataSource3 = _interopRequireDefault(_DataSource2);
+	
+	var _Graph2 = __webpack_require__(/*! ./Graph */ 175);
+	
+	var _Graph3 = _interopRequireDefault(_Graph2);
+	
 	var _Input2 = __webpack_require__(/*! ./Input */ 173);
 	
 	var _Input3 = _interopRequireDefault(_Input2);
 	
-	var _Tree2 = __webpack_require__(/*! ./Tree */ 175);
+	var _Tree2 = __webpack_require__(/*! ./Tree */ 178);
 	
 	var _Tree3 = _interopRequireDefault(_Tree2);
 	
@@ -20601,6 +20614,8 @@
 	exports.Button = _Button3.default;
 	exports.Card = _Card3.default;
 	exports.Command = _Command3.default;
+	exports.DataSource = _DataSource3.default;
+	exports.Graph = _Graph3.default;
 	exports.Input = _Input3.default;
 	exports.Tree = _Tree3.default;
 
@@ -20920,6 +20935,205 @@
 
 /***/ },
 /* 175 */
+/*!****************************!*\
+  !*** ./src/Graph/index.js ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.DataSource = undefined;
+	
+	var _DataSource2 = __webpack_require__(/*! ./DataSource */ 180);
+	
+	var _DataSource3 = _interopRequireDefault(_DataSource2);
+	
+	var _Graph = __webpack_require__(/*! ./Graph */ 176);
+	
+	var _Graph2 = _interopRequireDefault(_Graph);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.DataSource = _DataSource3.default;
+	exports.default = _Graph2.default;
+
+/***/ },
+/* 176 */
+/*!****************************!*\
+  !*** ./src/Graph/Graph.js ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _d = __webpack_require__(/*! d3 */ 177);
+	
+	var _d2 = _interopRequireDefault(_d);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Graph = function (_React$Component) {
+		_inherits(Graph, _React$Component);
+	
+		function Graph(props) {
+			_classCallCheck(this, Graph);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Graph).call(this, props));
+		}
+	
+		_createClass(Graph, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var element = _reactDom2.default.findDOMNode(this);
+				var props = this.props;
+	
+				// reference to svg element containing circles
+				this.svg = _d2.default.select(element).append('svg').attr('class', 'bubble-chart-d3');
+	
+				// reference to html element containing text
+				this.html = _d2.default.select(element).append('div').attr('class', 'bubble-chart-text');
+	
+				var margins = {
+					left: 50,
+					right: 20,
+					top: 20,
+					bottom: 40
+				};
+	
+				var size = {
+					width: 300,
+					height: 300
+				};
+	
+				var xScale = _d2.default.scale.linear().range([margins.left, size.width - margins.right]).domain([0, 300]);
+	
+				var yScale = _d2.default.scale.linear().range([size.height - margins.bottom, margins.top]).domain([0, 300]);
+	
+				var xAxis = _d2.default.svg.axis().scale(xScale).ticks(3).orient("bottom");
+	
+				var yAxis = _d2.default.svg.axis().scale(yScale).ticks(8).orient("left");
+	
+				this.svg.append("g").attr("class", "axis").attr("transform", "translate(0," + (size.height - margins.bottom) + ")").call(xAxis);
+	
+				this.svg.append("g").attr("class", "axis").attr("transform", "translate(" + margins.left + ",0)").call(yAxis);
+	
+				this.componentDidUpdate();
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				var element = _reactDom2.default.findDOMNode(this);
+				var data = this.props.data;
+	
+				if (!data) return;
+	
+				var margins = {
+					left: 50,
+					right: 20,
+					top: 20,
+					bottom: 40
+				};
+	
+				var size = {
+					width: 300,
+					height: 300
+				};
+	
+				var xScale = _d2.default.scale.linear().range([margins.left, size.width - margins.right]).domain([0, 300]);
+	
+				var yScale = _d2.default.scale.linear().range([size.height - margins.bottom, margins.top]).domain([0, 300]);
+	
+				// assign new data to existing DOM for circles and labels
+				var circles = this.svg.selectAll('circle').data(data);
+	
+				circles.transition().duration(500).attr('transform', function (d) {
+					return 'translate(' + xScale(d.x) + ',' + yScale(d.y) + ')';
+				}).attr('r', function (d) {
+					return Math.random() * 8 + 2;
+				});
+	
+				if (data.length) {
+					circles.enter().append('circle').attr('transform', function (d) {
+						return 'translate(' + xScale(d.x) + ',' + yScale(d.y) + ')';
+					}).attr('r', function (d) {
+						return Math.random() * 8 + 2;
+					});
+				}
+	
+				// code to handle update
+				// code code code code code
+	
+				// code to handle initial render
+				// code code code code code
+	
+				// code to handle exit
+				// code code code code code
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {}
+		}, {
+			key: 'render',
+			value: function render() {
+				var styles = {
+					width: "300px",
+					height: "300px"
+				};
+	
+				return _react2.default.createElement('div', { className: 'hello', style: styles });
+			}
+		}, {
+			key: 'getDOMNode',
+			value: function getDOMNode() {
+				return _reactDom2.default.findDOMNode(this);
+			}
+		}], [{
+			key: 'create',
+			value: function create(e, s) {}
+		}, {
+			key: 'update',
+			value: function update(e, s) {}
+		}]);
+	
+		return Graph;
+	}(_react2.default.Component);
+	
+	exports.default = Graph;
+
+/***/ },
+/* 177 */
+/*!*********************!*\
+  !*** external "d3" ***!
+  \*********************/
+/***/ function(module, exports) {
+
+	module.exports = d3;
+
+/***/ },
+/* 178 */
 /*!***************************!*\
   !*** ./src/Tree/index.js ***!
   \***************************/
@@ -20932,7 +21146,7 @@
 	});
 	exports.default = undefined;
 	
-	var _Tree = __webpack_require__(/*! ./Tree */ 176);
+	var _Tree = __webpack_require__(/*! ./Tree */ 179);
 	
 	var _Tree2 = _interopRequireDefault(_Tree);
 	
@@ -20941,7 +21155,7 @@
 	exports.default = _Tree2.default;
 
 /***/ },
-/* 176 */
+/* 179 */
 /*!**************************!*\
   !*** ./src/Tree/Tree.js ***!
   \**************************/
@@ -21051,6 +21265,88 @@
 	};
 	
 	exports.default = Tree;
+
+/***/ },
+/* 180 */
+/*!*********************************!*\
+  !*** ./src/Graph/DataSource.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _d = __webpack_require__(/*! d3 */ 177);
+	
+	var _d2 = _interopRequireDefault(_d);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DataSource = function (_React$Component) {
+		_inherits(DataSource, _React$Component);
+	
+		function DataSource(props) {
+			_classCallCheck(this, DataSource);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataSource).call(this, props));
+	
+			_this.state = {
+				data: [{ x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }]
+			};
+	
+			setTimeout(_this.increment.bind(_this), 1000);
+			return _this;
+		}
+	
+		_createClass(DataSource, [{
+			key: 'increment',
+			value: function increment() {
+				var d = [];
+				for (var i = 0; i < this.state.data.length; i++) {
+					d.push({
+						x: Math.random() * 300,
+						y: Math.random() * 300
+					});
+				}
+	
+				this.setState({ data: d });
+	
+				setTimeout(this.increment.bind(this), 1000);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.cloneElement(this.props.children, { data: this.state.data })
+				);
+			}
+		}]);
+	
+		return DataSource;
+	}(_react2.default.Component);
+	
+	exports.default = DataSource;
 
 /***/ }
 /******/ ]);

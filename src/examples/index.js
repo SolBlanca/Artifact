@@ -15,6 +15,9 @@ class App extends React.Component {
 	        </I.Tree>
 	        hey
         </I.Tree>
+        <I.DataSource>
+          <I.Graph></I.Graph>
+        </I.DataSource>
       </div>
     );
   }

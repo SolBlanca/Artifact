@@ -86,3 +86,20 @@ body {
 .Tree-containter * {
 	color: red;
 }
+
+svg {
+	width: 100%;
+	height: 100%;
+}
+
+circle {
+	fill: red;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: gray;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
