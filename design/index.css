@@ -1,0 +1,207 @@
+body, input {
+	font-family: 'Open Sans', "Arial", "Helvetica", sans-serif;
+	padding-top: 80px;
+	padding-left: 200px;
+}
+
+.Command {
+	background: #111;
+
+	position: fixed;
+
+	left: 0;
+	right: 0;
+	top: 0;
+
+	height: 80px;
+}
+
+.Command .Logo {
+	color: #fff;
+
+	height: 100%;
+	width: 200px;
+
+	text-align: center;
+	line-height: 80px;
+}
+
+.Command .Search {
+	display: inline-block;
+	margin-left: 200px;
+
+	position: absolute;
+	top: 0;
+}
+
+.Command .Search .container {
+	background: #fff;
+
+	height: 32px;
+
+	margin: 20px 0;
+}
+
+.Command .Search input {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	font-size: 16px;
+
+	height: 32px;
+	line-height: 32px;
+
+	text-indent: 8px;
+}
+
+.Command .Search button {
+	height: 32px;
+	background: #862d86;
+	color: #eee;
+
+	border: 0;
+	vertical-align: top;
+
+	font-size: 16px;
+	line-height: 32px;
+	padding: 0 10px;
+}
+
+.Taskbar {
+	background: #333;
+
+	position: fixed;
+
+	left: 0;
+	top: 80px;
+	bottom: 0;
+
+	width: 200px;
+}
+
+.Task {
+	color: #ccc;
+	padding: 6px 12px;
+	line-height: 30px;
+
+	box-sizing: border-box;
+
+	height: 42px;
+
+	position: relative;
+}
+
+.Task.active,
+.TaskDetail.active {
+	background: #222;
+}
+
+.Task:hover,
+.TaskDetail:hover {
+	background: #222;
+}
+
+.Task.active::before,
+.TaskDetail.active::before {
+	content: "";
+	display: block;
+	position: absolute;
+	background: red;
+
+	left: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 4px;
+}
+
+.TaskDetail::after {
+	content: "";
+	display: block;
+	position: absolute;
+
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 20px;
+
+	background: linear-gradient(to right, rgba(51, 51, 51, 0), rgba(51, 51, 51, 1)); /* Standard syntax */
+}
+
+.TaskDetail.active::after,
+.TaskDetail:hover::after {
+	background: linear-gradient(to right, rgba(34, 34, 34, 0), rgba(34, 34, 34, 1)); /* Standard syntax */
+}
+
+.TaskDetail {
+	color: #ddd;
+	padding: 9px 12px 9px 16px;
+	line-height: 30px;
+
+	box-sizing: border-box;
+
+	height: 48px;
+
+	position: relative;
+
+    white-space: nowrap;
+}
+
+.TaskDetail .group {
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 10px;
+	color: #888;
+
+	margin-bottom: 4px;
+}
+
+.TaskDetail .name {
+	line-height: 16px;
+}
+
+h1 {
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+
+.Content {
+	margin: 20px;
+}
+
+.Header {
+	height: 300px;
+	background: url("seattle.jpg");
+	background-size: cover;
+}
+
+.Content .Aside {
+	float: right;
+	width: 300px;
+
+	box-sizing: border-box;
+	padding: 10px;
+
+	background: #eee;
+}
+
+.Aside :first-child {
+	margin-top: 0;
+}
+
+.Aside :last-child {
+	margin-bottom: 0;
+}
+
+.Button {
+	background: #FFC125;
+
+	box-sizing: border-box;
+	padding: 10px;
+
+	text-align: center;
+	border-radius: 2px;
+
+	margin: 10px 0;
+}
