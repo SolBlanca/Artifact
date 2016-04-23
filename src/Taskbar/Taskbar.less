@@ -1,0 +1,80 @@
+.Taskbar {
+	background: #333;
+
+	position: fixed;
+
+	left: 0;
+	top: 80px;
+	bottom: 0;
+
+	width: 200px;
+}
+
+
+
+.Task.active {
+	background: #222;
+}
+
+.Task:hover {
+	background: #222;
+}
+
+.Task.active::before {
+	content: "";
+	display: block;
+	position: absolute;
+	background: red;
+
+	left: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 4px;
+}
+
+.Task::after {
+	content: "";
+	display: block;
+	position: absolute;
+
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 20px;
+
+	background: linear-gradient(to right, rgba(51, 51, 51, 0), rgba(51, 51, 51, 1)); /* Standard syntax */
+}
+
+.Task.active::after,
+.Task:hover::after {
+	background: linear-gradient(to right, rgba(34, 34, 34, 0), rgba(34, 34, 34, 1)); /* Standard syntax */
+}
+
+.Task {
+	color: #ddd;
+	padding: 9px 12px 9px 16px;
+	line-height: 30px;
+
+	box-sizing: border-box;
+
+	height: 48px;
+
+	position: relative;
+
+    white-space: nowrap;
+}
+
+.Task .group {
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 10px;
+	color: #888;
+
+	margin-bottom: 4px;
+}
+
+.Task .name {
+	line-height: 16px;
+}

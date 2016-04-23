@@ -1,0 +1,37 @@
+.Button {
+	border-radius: 4px;
+	background: @red;
+	color: #fff;
+
+	line-height: 36px;
+	font-size: 16px;
+
+	border: none;
+	margin: 4px;
+	padding: 0 18px;
+
+	font-weight: 300;
+	font-size: 14px;
+	letter-spacing: 0.05em;
+
+	cursor: pointer;
+
+	transition: background 0.5s;
+
+	outline: none;
+
+}
+
+.Button:hover {
+	background: @light;
+	transition: background 0.2s;
+}
+
+.Button:active {
+	background: @dark;
+	transition: background 0s;
+}
+
+.Button:focus {
+	outline: 2px solid #eee;
+}

@@ -35,7 +35,6 @@ class Tree extends React.Component
 				{...rest}
 				className='Tree-handle'
 				onClick={this.handleClick.bind(this)}>
-				>
 			</div>);
 
 		return (

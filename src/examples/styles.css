@@ -1,0 +1,334 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  font-family: 'Open Sans', "Arial", "Helvetica", sans-serif;
+  padding-top: 80px;
+  padding-left: 200px;
+}
+.Button {
+  border-radius: 4px;
+  background: #d22732;
+  color: #fff;
+  line-height: 36px;
+  font-size: 16px;
+  border: none;
+  margin: 4px;
+  padding: 0 18px;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.5s;
+  outline: none;
+}
+.Button:hover {
+  background: #e03b2f;
+  transition: background 0.2s;
+}
+.Button:active {
+  background: #b6362d;
+  transition: background 0s;
+}
+.Button:focus {
+  outline: 2px solid #eee;
+}
+.Command {
+  background: #111;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 80px;
+}
+.Command .Logo {
+  color: #fff;
+  height: 100%;
+  width: 200px;
+  text-align: center;
+  line-height: 80px;
+}
+.Command .Search {
+  display: inline-block;
+  margin-left: 200px;
+  position: absolute;
+  top: 0;
+}
+.Command .Search .container {
+  background: #fff;
+  height: 32px;
+  margin: 20px 0;
+}
+.Command .Search input {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 16px;
+  height: 32px;
+  line-height: 32px;
+  text-indent: 8px;
+}
+.Command .Search button {
+  height: 32px;
+  background: #862d86;
+  color: #eee;
+  border: 0;
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 32px;
+  padding: 0 10px;
+}
+.Graph {
+  margin: 4px;
+}
+.Graph .axis path,
+.Graph .axis line {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.Graph .header {
+  border-bottom: 2px solid #ddd;
+  padding: 10px 4px 5px;
+  color: #888;
+}
+.Graph .axis text {
+  fill: #888;
+  font-size: 10px;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.Graph .axis .domain {
+  stroke: none;
+}
+.Graph .y.axis .tick line {
+  stroke-dasharray: 4, 3;
+}
+.Graph .x.axis .tick line {
+  stroke: #aaa;
+}
+.Spark {
+  width: 64px;
+  height: 32px;
+  margin: 2px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.Spark path {
+  stroke: #23456b;
+  stroke-width: 1;
+  fill: none;
+}
+.Spark circle {
+  stroke: white;
+  stroke-width: 1;
+  fill: #23456b;
+}
+.Taskbar {
+  background: #333;
+  position: fixed;
+  left: 0;
+  top: 80px;
+  bottom: 0;
+  width: 200px;
+}
+.Task.active {
+  background: #222;
+}
+.Task:hover {
+  background: #222;
+}
+.Task.active::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: red;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+.Task::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(to right, rgba(51, 51, 51, 0), #333333);
+  /* Standard syntax */
+}
+.Task.active::after,
+.Task:hover::after {
+  background: linear-gradient(to right, rgba(34, 34, 34, 0), #222222);
+  /* Standard syntax */
+}
+.Task {
+  color: #ddd;
+  padding: 9px 12px 9px 16px;
+  line-height: 30px;
+  box-sizing: border-box;
+  height: 48px;
+  position: relative;
+  white-space: nowrap;
+}
+.Task .group {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #888;
+  margin-bottom: 4px;
+}
+.Task .name {
+  line-height: 16px;
+}
+.Tree-collapsed .Tree-container {
+  display: none;
+}
+.Tree-collapsed .Tree-handle {
+  transform: rotate(-90deg);
+  transition: all 0.1s;
+}
+.Tree-handle {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 6px;
+}
+.Tree-handle::after {
+  font-family: sans-serif;
+  content: '\25BE';
+  width: 16px;
+  display: inline-block;
+  text-align: center;
+}
+.Tree-container {
+  margin-left: 22px;
+}
+
+/*# sourceMappingURL=styles.css.map*/

@@ -1,0 +1,42 @@
+.Graph
+{
+	margin: 4px;
+}
+
+.Graph .axis path,
+.Graph .axis line {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.Graph .header {
+	border-bottom: 2px solid #ddd;
+	padding: 10px 4px 5px;
+	color: #888;
+}
+
+.Graph .axis text {
+	fill: #888;
+	font-size: 10px;
+
+	cursor: default;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.Graph .axis .domain {
+	stroke: none;
+}
+
+.Graph .y.axis .tick line {
+	stroke-dasharray: 4, 3;
+}
+
+.Graph .x.axis .tick line {
+    stroke: #aaa;
+}

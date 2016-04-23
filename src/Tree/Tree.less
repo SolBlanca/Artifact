@@ -1,0 +1,32 @@
+.Tree {
+}
+
+.Tree-collapsed .Tree-container {
+	display: none;
+}
+
+.Tree-collapsed .Tree-handle {
+	transform: rotate(-90deg);
+    transition: all 0.1s;
+}
+
+.Tree-handle {
+	display: inline-block;
+	cursor: pointer;
+	margin-right: 6px;
+}
+
+.Tree-handle::after {
+	font-family: sans-serif;
+	content: '▾';
+	width: 16px;
+	display: inline-block;
+	text-align: center;
+}
+
+.Tree-label {
+}
+
+.Tree-container {
+	margin-left: 22px;
+}

@@ -13,7 +13,7 @@ class Button extends React.Component
 		];
 
 		return (
-			<button className={classes} style={styles}>Heyyy</button>
+			<button className={classes} style={styles}>Download Data</button>
 		);
 	}
 }

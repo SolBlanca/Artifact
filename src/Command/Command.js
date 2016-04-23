@@ -5,15 +5,9 @@ class Command extends React.Component
 {
 	render() 
 	{
-		var styles = {
-			'width': '100%',
-			'background': '#000'
-		};
-
 		return (
-			<div className='Command' style={styles}>
-				Ascension
-				<Input />
+			<div className='Command'>
+				<div className='Logo'>Artifact</div>
 			</div>
 		);
 	}
