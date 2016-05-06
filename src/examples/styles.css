@@ -249,6 +249,101 @@ body {
   stroke-width: 1;
   fill: #23456b;
 }
+.Grid {
+  width: 100%;
+  margin: 0 auto;
+  overflow: scroll;
+  height: 400px;
+}
+.Grid table {
+  border-collapse: collapse;
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  table-layout: fixed;
+  width: 100%;
+}
+.Grid th,
+tr {
+  border-bottom: 1px solid #ddd;
+}
+.Grid td {
+  border-right: 1px solid #ddd;
+  width: 120px;
+  line-height: 28px;
+  height: 27px;
+  font-size: 16px;
+}
+.Grid input {
+  font-family: 'Open Sans', "Arial", "Helvetica", sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  line-height: 28px;
+  padding: 0;
+  height: 27px;
+  font-size: 16px;
+  text-align: left;
+  outline: 0;
+  vertical-align: top;
+}
+.Slider {
+  position: relative;
+  height: 30px;
+  margin: 4px;
+}
+.Slider .Track,
+.Slider .Progress {
+  position: absolute;
+  cursor: pointer;
+  top: 8px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  background: red;
+  transition: height 0.3s, top 0.3s;
+  border-radius: 2px;
+}
+.Slider .Track {
+  background: rgba(127, 127, 127, 0.6);
+}
+.Slider:hover .Track,
+.Slider:hover .Progress {
+  top: 6px;
+  height: 8px;
+  border-radius: 1px;
+  transition: height 0.2s, top 0.2s;
+}
+.Slider .Handle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: red;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.Slider:hover .Handle {
+  opacity: 1;
+}
+.Slider .tick text {
+  font-size: 10px;
+}
+.Slider .domain {
+  fill: none;
+}
+.Slider .tick line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+  opacity: 0.2;
+  transition: opacity 0.2s;
+}
+.Slider:hover .tick line {
+  opacity: 1;
+}
 .Taskbar {
   background: #333;
   position: fixed;
@@ -330,5 +425,3 @@ body {
 .Tree-container {
   margin-left: 22px;
 }
-
-/*# sourceMappingURL=styles.css.map*/
