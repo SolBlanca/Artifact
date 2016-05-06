@@ -52,15 +52,38 @@ class Slider extends React.Component
 			.scale(scale)
 			.tickSize(8);
 
-		var slider = d3.select(element);
-		var track = slider.append('div')
-			.classed('Track', true);
-		var progress = slider.append('div')
+		var props = this.props;
+
+		var px = 0;
+
+		var slider = this.slider = d3.select(element);
+		var track = this.track = slider.append('div')
+			.classed('Track', true)
+			.call(drag)
+        	.on('mousedown', () =>{
+	        	var percent = d3.event.layerX / track.node().offsetWidth;
+				var position = ( this.slider.node().offsetWidth - 20 ) * percent;
+				px = percent;
+
+				slider.classed('tracking', true);
+	        	handle.style('left', position + 'px');
+	        	progress.style('width', (position + 4) + 'px');
+			});
+		var progress = this.progress = slider.append('div')
 			.classed('Progress', true)
-			.style('width', 4 + 'px');
-		var handle = slider.append('div')
+			.style('width', 4 + 'px')
+			.call(drag)
+        	.on('mousedown', () =>{
+	        	var percent = d3.event.layerX / track.node().offsetWidth;
+				var position = ( this.slider.node().offsetWidth - 20 ) * percent;
+				px = percent;
+
+				slider.classed('tracking', true);
+	        	handle.style('left', position + 'px');
+	        	progress.style('width', (position + 4) + 'px');
+			});
+		var handle = this.handle =  slider.append('div')
 			.classed('Handle', true)
-        	.on("click", () => {})
 			.call(drag);
 
 		slider.append('svg')
@@ -70,20 +93,28 @@ class Slider extends React.Component
 				.call(axis);
 
 
-		drag.on('dragend', (() => {
-        	var pos = Math.max(0, Math.min(element.offsetWidth - 20, d3.event.x));
-        	var percent = pos / (element.offsetWidth - 20);
-        	var value = +this.props.min + percent * (+this.props.max - +this.props.min);
 
-        	console.log(value);
+		drag.on('dragstart', () =>{
+			slider.classed('tracking', true);
+			d3.event.sourceEvent.preventDefault();
+		});
+
+		drag.on('dragend', () => {
+        	var percent = px;
+        	var value = props.min + percent * (props.max - props.min);
 
 			this.setState({
 				value: value
 			})
-		}).bind(this));
+
+			slider.classed('tracking', false);
+		});
 
 		drag.on('drag', () => {
-        	var pos = Math.max(0, Math.min(element.offsetWidth - 20, d3.event.x));
+        	var pos = Math.max(0, Math.min(element.offsetWidth - 20, d3.event.x - 10));
+        	var percent = pos / (element.offsetWidth - 20);
+        	px = percent;
+
         	handle.style('left', pos + 'px');
         	progress.style('width', (pos + 4) + 'px')
 		});
@@ -92,7 +123,11 @@ class Slider extends React.Component
 	}
 
 	componentDidUpdate () {
-		console.log('update');
+		var percent = ( Math.round(this.state.value) - this.props.min ) / (this.props.max - this.props.min);
+		var position = ( this.slider.node().offsetWidth - 20 ) * percent;
+
+    	this.handle.style('left', position + 'px');
+    	this.progress.style('width', (position + 4) + 'px')
 	}
 }
 

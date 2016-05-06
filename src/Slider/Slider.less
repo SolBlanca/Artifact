@@ -8,6 +8,7 @@
 .Slider .Progress {
 	position: absolute;
 	cursor: pointer;
+	z-index: 0;
 
 	top: 8px;
 	left: 6px;
@@ -15,27 +16,29 @@
 	height: 4px;
 
 	background: red;
-	transition: height 0.3s, top 0.3s;
+	transition: height 0.2s, top 0.2s;
 
 	border-radius: 2px;
 }
 
 .Slider .Track {
-	background: rgba(127, 127, 127, 0.6)
+	background: rgba(200, 200, 200, 0.4	)
 }
 
 .Slider:hover .Track,
-.Slider:hover .Progress {
+.Slider.tracking .Track,
+.Slider:hover .Progress,
+.Slider.tracking .Progress {
 	top: 6px;
 	height: 8px;
 
-	border-radius: 1px;
-	transition: height 0.2s, top 0.2s;
+	border-radius: 3px;
 }
 
 .Slider .Handle {
 	position: absolute;
 	cursor: pointer;
+	z-index: 2;
 
 	top: 0;
 	left: 0;
@@ -51,12 +54,25 @@
 	transition: opacity 0.1s;
 }
 
-.Slider:hover .Handle {
+.Slider:hover .Handle,
+.Slider.tracking .Handle {
 	opacity: 1;
 }
 
 .Slider .tick text {
 	font-size: 10px;
+	cursor: default;
+
+	// user-select: none;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+}
+
+.Slider svg {
+	position: relative;
+	z-index: 1;
+	pointer-events: none;
 }
 
 .Slider .domain {
