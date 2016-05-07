@@ -5,7 +5,8 @@
 }
 
 .Slider .Track,
-.Slider .Progress {
+.Slider .Progress,
+.Slider .Selection {
 	position: absolute;
 	cursor: pointer;
 	z-index: 0;
@@ -22,13 +23,19 @@
 }
 
 .Slider .Track {
-	background: rgba(200, 200, 200, 0.4	)
+	background: rgba(200, 200, 200, 0.4	);
+}
+
+.Slider .Selection {
+	background: rgba(128, 128, 128, 0.4	);
+	width: 0px;
 }
 
 .Slider:hover .Track,
 .Slider.tracking .Track,
 .Slider:hover .Progress,
-.Slider.tracking .Progress {
+.Slider.tracking .Progress,
+.Slider .Selection {
 	top: 6px;
 	height: 8px;
 

@@ -21587,10 +21587,6 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var styles = {};
-
-				var classes = ['Button'];
-
 				return _react2.default.createElement('div', { className: 'Slider' });
 			}
 		}, {
@@ -21599,64 +21595,31 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				var _this2 = this;
-
 				var element = this.element();
-				var drag = _d2.default.behavior.drag();
-				var scale = _d2.default.scale.linear().domain([0, 100]).range([0, element.offsetWidth - 20]);
-				var axis = _d2.default.svg.axis().scale(scale).tickSize(8);
 
-				var props = this.props;
+				this.drag = _d2.default.behavior.drag();
+				this.scale = _d2.default.scale.linear().domain([this.props.min, this.props.max]).range([0, element.offsetWidth - 20]);
+				this.axis = _d2.default.svg.axis().scale(this.scale).tickSize(8);
 
-				var px = 0;
+				this.slider = _d2.default.select(element);
+				this.selection = this.slider.append('div').classed('Selection', true);
 
-				var slider = this.slider = _d2.default.select(element);
-				var track = this.track = slider.append('div').classed('Track', true).call(drag).on('mousedown', function () {
-					var percent = _d2.default.event.layerX / track.node().offsetWidth;
-					var position = (_this2.slider.node().offsetWidth - 20) * percent;
-					px = percent;
+				this.track = this.slider.append('div').classed('Track', true).call(this.drag).on('mousedown', this.onMouseDown.bind(this)).on('mousemove', this.onMouseMove.bind(this)).on('mouseout', this.onMouseOut.bind(this));
 
-					slider.classed('tracking', true);
-					handle.style('left', position + 'px');
-					progress.style('width', position + 4 + 'px');
-				});
-				var progress = this.progress = slider.append('div').classed('Progress', true).style('width', 4 + 'px').call(drag).on('mousedown', function () {
-					var percent = _d2.default.event.layerX / track.node().offsetWidth;
-					var position = (_this2.slider.node().offsetWidth - 20) * percent;
-					px = percent;
+				this.progress = this.slider.append('div').classed('Progress', true).style('width', 4 + 'px').call(this.drag).on('mousedown', this.onMouseDown.bind(this));
 
-					slider.classed('tracking', true);
-					handle.style('left', position + 'px');
-					progress.style('width', position + 4 + 'px');
-				});
-				var handle = this.handle = slider.append('div').classed('Handle', true).call(drag);
+				this.handle = this.slider.append('div').classed('Handle', true).call(this.drag);
 
-				slider.append('svg').attr("width", '100%').append("g").attr("transform", "translate(10,6)").call(axis);
+				this.slider.append('svg').attr("width", '100%').append("g").attr("transform", "translate(10,6)").call(this.axis);
 
-				drag.on('dragstart', function () {
-					slider.classed('tracking', true);
-					_d2.default.event.sourceEvent.preventDefault();
-				});
+				this.drag.on('dragstart', this.onDragStart.bind(this));
+				this.drag.on('dragend', this.onDragEnd.bind(this));
+				this.drag.on('drag', this.onDrag.bind(this));
 
-				drag.on('dragend', function () {
-					var percent = px;
-					var value = props.min + percent * (props.max - props.min);
+				this.currentWidth = element.offsetWidth;
 
-					_this2.setState({
-						value: value
-					});
-
-					slider.classed('tracking', false);
-				});
-
-				drag.on('drag', function () {
-					var pos = Math.max(0, Math.min(element.offsetWidth - 20, _d2.default.event.x - 10));
-					var percent = pos / (element.offsetWidth - 20);
-					px = percent;
-
-					handle.style('left', pos + 'px');
-					progress.style('width', pos + 4 + 'px');
-				});
+				this.resideHandler = this.onResize.bind(this);
+				window.addEventListener('resize', this.resideHandler);
 			}
 		}, {
 			key: 'componentDidUpdate',
@@ -21666,6 +21629,75 @@
 
 				this.handle.style('left', position + 'px');
 				this.progress.style('width', position + 4 + 'px');
+
+				if (this.props.onchange != undefined) {
+					this.props.onchange(this.state.value);
+				}
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				window.removeEventListener('resize', this.resideHandler);
+			}
+		}, {
+			key: 'onResize',
+			value: function onResize(e) {
+				var element = this.element();
+
+				if (element.offsetWidth == this.currentWidth) return;
+
+				this.currentWidth = element.offsetWidth;
+				this.scale.range([0, element.offsetWidth - 20]);
+				_d2.default.select(element).select('svg').select('g').call(this.axis);
+			}
+		}, {
+			key: 'onMouseDown',
+			value: function onMouseDown() {
+				this.percent = _d2.default.event.layerX / this.track.node().offsetWidth;
+				var position = (this.slider.node().offsetWidth - 20) * this.percent;
+
+				this.slider.classed('tracking', true);
+				this.handle.style('left', position + 'px');
+				this.progress.style('width', position + 4 + 'px');
+			}
+		}, {
+			key: 'onMouseMove',
+			value: function onMouseMove() {
+				var percent = _d2.default.event.layerX / this.track.node().offsetWidth;
+				var position = (this.slider.node().offsetWidth - 20) * percent;
+
+				this.selection.style('width', position + 'px');
+			}
+		}, {
+			key: 'onMouseOut',
+			value: function onMouseOut() {
+				this.selection.style('width', '0px');
+			}
+		}, {
+			key: 'onDragStart',
+			value: function onDragStart() {
+				this.slider.classed('tracking', true);
+				_d2.default.event.sourceEvent.preventDefault();
+			}
+		}, {
+			key: 'onDrag',
+			value: function onDrag() {
+				var width = this.element().offsetWidth - 20;
+				var position = Math.max(0, Math.min(width, _d2.default.event.x - 10));
+				this.percent = position / width;
+
+				this.handle.style('left', position + 'px');
+				this.progress.style('width', position + 4 + 'px');
+			}
+		}, {
+			key: 'onDragEnd',
+			value: function onDragEnd() {
+				var value = this.props.min + this.percent * (this.props.max - this.props.min);
+				this.slider.classed('tracking', false);
+
+				this.setState({
+					value: value
+				});
 			}
 		}]);
 
@@ -21679,7 +21711,7 @@
 
 	Slider.defaultProps = {
 		min: 0,
-		max: 100
+		max: 830
 	};
 
 	exports.default = Slider;

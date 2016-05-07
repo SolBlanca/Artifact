@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-import * as I from '..';
-import '../styles.less'
+import * as I from '../source';
+import '../source/styles.less'
 
 class App extends React.Component {
 	render () {
