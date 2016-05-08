@@ -2,7 +2,7 @@
   "name": "sol-artifact",
   "version": "0.0.1",
   "description": "React component library.",
-  "main": "index.js",
+  "main": "distribution/commonjs/index.js",
   "keywords": [
     "react",
     "react-component",
@@ -16,7 +16,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "cross-env NODE_ENV=production cross-env BABEL_ENV=commonjs babel source --out-dir distribution/commonjs --ignore *.example.js,*.test.js,source/demo/,source/tests.js"
   },
   "peerDependencies": {
     "react": "^15.0.0",
@@ -25,6 +25,7 @@
   "dependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
+    "babel-cli": "6.5.1",
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",

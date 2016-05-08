@@ -2,14 +2,16 @@ var Webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var BUILD_DIR = path.resolve( __dirname, 'examples' );
+var BUILD_DIR = path.resolve( __dirname );
 var APP_DIR = path.resolve( __dirname, 'source' );
 
 var config = {
 	entry: BUILD_DIR + '/index.js',
 	output: {
 		path: BUILD_DIR,
-		filename: 'artifact.js',
+		filename: 'index.js',
+		libraryTarget: "commonjs",
+		library: 'Artifact'
 	},
 	module : {
 		loaders : [
